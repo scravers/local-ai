@@ -1,0 +1,14 @@
+name: qwen3-0.6B.Q4_K_M
+parameters:
+  model: qwen3-0.6B.Q4_K_M.gguf
+  type: qwen3-0.6B.Q4_K_M
+  format: gguf
+backend: llama-cpp
+context_size: 8192
+gpu_layers: 0
+threads: 6 # Ideally set this to your number of CPU cores
+batch_size: 64
+f16: true
+download_files:
+  - filename: qwen3-0.6B.Q4_K_M.gguf
+    uri: https://huggingface.co/MaziyarPanahi/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B.Q4_K_M.gguf

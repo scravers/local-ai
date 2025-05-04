@@ -1,3 +1,4 @@
 models/*
 !models/*.yaml
 .DS_Store
+venv/

@@ -1,6 +1,6 @@
 name: phi-3.5-mini-instruct
 parameters:
-  model: bartowski/phi-3.5-mini-instruct.gguf
+  model: phi-3.5-mini-instruct.gguf
   type: phi-3.5-mini-instruct
   format: gguf
 backend: llama-cpp
@@ -10,5 +10,5 @@ threads: 4 # Ideally set this to your number of CPU cores
 batch_size: 64
 f16: true
 download_files:
-  - filename: bartowski/phi-3.5-mini-instruct.gguf
+  - filename: phi-3.5-mini-instruct.gguf
     uri: https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q6_K.gguf

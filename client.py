@@ -3,6 +3,7 @@ import time
 import json
 from typing import List, Dict, Generator, Tuple
 import requests
+import sys
 
 
 class LLMClient:
@@ -36,7 +37,7 @@ class LLMClient:
     def chat_stream(
         self,
         messages: List[Dict],
-        model: str = "phi-3.5-mini-instruct",
+        model: str = "qwen3-0.6B.Q4_K_M",
     ) -> Generator[Tuple[str, float], None, None]:
         """Send a streaming chat completion request"""
 
@@ -87,7 +88,7 @@ class LLMClient:
                         continue
 
 
-def demonstrate_capabilities():
+def demonstrate_capabilities(passed_text):
     """Show basic capabilities of the LLM with streaming responses"""
     llm = LLMClient(os.getenv("LLM_API_BASE", "http://localhost:8080/v1"))
 
@@ -98,28 +99,24 @@ def demonstrate_capabilities():
     except Exception as e:
         print(f"Error listing models: {e}")
 
-    examples = [
+    questions = [
         {
-            "title": "AI Explanation",
             "messages": [
                 {
                     "role": "user",
-                    "content": "Explain what AI is in two sentences",
+                    "content": passed_text,
                 },
             ],
         },
     ]
 
-    for example in examples:
-        print(f"\nExample: {example['title']}")
+    for question in questions:
         print("Response:")
 
         try:
             total_time = 0
             total_response = ""
-            for token, response_time in llm.chat_stream(example["messages"]):
-                end_char = "\n" if token == " " else ""
-                print(token, end=end_char, flush=True)
+            for token, response_time in llm.chat_stream(question["messages"]):
                 total_time = response_time
                 total_response += token
             print(f"\nTotal time: {total_time:.2f}s")
@@ -133,4 +130,5 @@ def demonstrate_capabilities():
 if __name__ == "__main__":
     print("🤖 LocalAI Streaming Client Demo")
     print("Testing connection to LocalAI and demonstrating basic capabilities...")
-    demonstrate_capabilities()
+
+    demonstrate_capabilities(sys.argv[1])
